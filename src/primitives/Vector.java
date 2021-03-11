@@ -5,7 +5,7 @@ import static primitives.Point3D.ZERO;
 /**
  * Vector in 3D for RayTracing
  *
- * @author Eliezer
+ *@author Adina Kallus and Hadassa Israel
  */
 public class Vector {
     Point3D _head;
@@ -13,7 +13,7 @@ public class Vector {
     /**
      * primary  constructor for Vector class
      *
-     * @param head ma sheyesh meal haktfayim
+     * @param head Point3D head of this vector
      */
     public Vector(Point3D head) {
         if (head.equals(ZERO)) {
@@ -33,6 +33,10 @@ public class Vector {
         this(new Point3D(x, y, z));
     }
 
+    /**
+     * @param o Object ( another vector) to compare
+     * @return true or false accordingly
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,7 +63,7 @@ public class Vector {
      * dot product between two vectors (scalar product)
      *
      * @param v the right vector of U.V
-     * @return scalre value of dot product
+     * @return scalar value of dot product
      */
     public double dotProduct(Vector v) {
         double u1 = _head._x.coord;
@@ -79,7 +83,6 @@ public class Vector {
      *
      * @param v another Vector
      * @return new Vector resulting from cross product
-     * @link https://en.wikipedia.org/wiki/Cross_product
      */
     public Vector crossProduct(Vector v) {
         double u1 = _head._x.coord;
@@ -149,7 +152,7 @@ public class Vector {
 
     /**
      *
-     * @param v Vector
+     * @param v Vector to add
      * @return new Vector (u+v)
      */
     public Vector add(Vector v) {
@@ -162,7 +165,7 @@ public class Vector {
 
     /**
      *
-     * @param v Vector
+     * @param v Vector to subtract
      * @return new Vector(u-v)
      */
     public Vector subtract(Vector v) {
@@ -174,10 +177,9 @@ public class Vector {
     }
 
     /**
-     * creating a new Vector corresponding to the actual one
+     * @param scalar scaling factor
+     * @return new Vector corresponding to the actual one
      * scaled by scaling factor
-     *
-     * @param scalar scaling factot
      */
     public Vector scale(double scalar) {
         if(Double.compare(scalar,0d)== 0){
