@@ -88,6 +88,5 @@ class VectorTest {
 
     @Test
     void scale() {
-
     }
 }
