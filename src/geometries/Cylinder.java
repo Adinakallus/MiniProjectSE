@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Ray;
+import primitives.Vector;
 
 /**
  * Cylinder inherits from Tube
@@ -22,4 +23,10 @@ public class Cylinder extends Tube {   // implements Geometry
         super(axisRay,radius);
         _height = height;
     }
+
+    @Override
+    public Vector getNormal(Point3D point3D){
+        return null;
+    }
+
 }
