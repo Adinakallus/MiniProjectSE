@@ -18,7 +18,7 @@ public class Sphere implements Geometry {
      * @param radius of the sphere
      */
 
-    public Sphere(Point3D center, double radius) {
+    public Sphere(double radius,Point3D center) {
         _center = center;
         _radius = radius;
     }
@@ -28,6 +28,7 @@ public class Sphere implements Geometry {
      * @return a center of sphere
      */
     public Point3D getCenter() {
+
         return _center;
     }
 
@@ -36,15 +37,23 @@ public class Sphere implements Geometry {
      * @return a radius of sphere
      */
     public double getRadius() {
+
         return _radius;
     }
 
     /**
+     * override func get normal
      * @param point the point we want to find normal to
      * @return normal to sphere at point
      */
     @Override
     public Vector getNormal(Point3D point) {
-        return null;
+      if(point.equals(_center)) {
+          throw new IllegalArgumentException("Error: point equals center");
+      }
+      Vector vector= point.subtract(_center);
+      return vector.normalize();
+
+
     }
 }

@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import static primitives.Util.isZero;
+
 /**
  * Tube implements Geometry
  *
@@ -19,17 +21,31 @@ public class Tube implements Geometry {
      * @param radius of the tube
      */
 
-    public Tube(Ray axisRay, double radius) {
+    public Tube( double radius,Ray axisRay) {
         _axysRay = axisRay;
         _radius = radius;
     }
 
     /**
+     * override func getNormal
      * @param point the point we want to find normal to
-     * @return normal to sphere at point
+     * @return normal to Tube at point
      */
     @Override
     public Vector getNormal(Point3D point) {
-        return null;
+    Point3D p0=_axysRay.getP0();
+    Vector v=_axysRay.getDir();
+     Vector p0_p=point.subtract(p0);
+
+     double t=v.dotProduct(p0_p);
+
+     if(isZero(t)){
+         return p0_p;
+     }
+     Point3D o=p0.add(v.scale(t));
+     Vector n=point.subtract(o);
+     return n.normalize();
     }
+
+
 }

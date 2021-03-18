@@ -14,7 +14,7 @@ import static primitives.Util.isZero;
  * @author Dan
  *
  */
-public class PolygonTest {
+public class PolygonTests {
 
     /**
      * Test method for

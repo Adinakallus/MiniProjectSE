@@ -7,8 +7,8 @@ import static primitives.Util.*;
 /**
  * Test program for the 1st stage
  *
- * @author Adina Kallus 328793963
- * @author  Hadassa Israel 209661982
+ * @author Adina Kallus 328793963 adina.ck.2000@gmail.com
+ * @author  Hadassa Israel 209661982 hadassa191998@gmail.com
  */
 public final class Main {
 

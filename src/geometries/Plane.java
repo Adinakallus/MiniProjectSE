@@ -33,16 +33,20 @@ public class Plane implements Geometry {
      */
     public Plane(Point3D p1, Point3D p2, Point3D p3) {
         _q0 = p1;
-        //  TODO check direction of vectors
-//        Vector U = p1.subtract(p2);
-//        Vector V = p3.subtract(p2);
+
 
         Vector U = p2.subtract(p1);
         Vector V = p3.subtract(p1);
-        Vector N = U.crossProduct(V);
+        try {
+            Vector N = U.crossProduct(V);
+            N.normalize();
+            _normal = N;
+        }
+        catch(IllegalArgumentException e){
+            throw new IllegalArgumentException("cant create plane if 3 of the points are on the same line");
+        }
 
-        N.normalize();
-          _normal = N;
+
     }
 
     /**
@@ -52,6 +56,7 @@ public class Plane implements Geometry {
      */
     @Override
     public Vector getNormal(Point3D point) {
+
         return _normal;
     }
 

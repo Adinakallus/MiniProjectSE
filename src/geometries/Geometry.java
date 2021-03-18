@@ -8,6 +8,6 @@ import primitives.Vector;
  *
  *@author Adina Kallus and Hadassa Israel
  */
-public interface Geometry extends Intersectable{
+public interface Geometry {
     Vector getNormal(Point3D point3D);
 }
