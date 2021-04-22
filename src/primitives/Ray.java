@@ -1,5 +1,8 @@
 package primitives;
 
+
+import static primitives.Util.isZero;
+
 /**
  * Ray for RayTracing
  *
@@ -32,9 +35,19 @@ public class Ray {
     /**
      * @return new vector with same head as dir
      */
+
     public Vector getDir() {
         return new Vector(_dir._head);
     }
+
+
+    public Point3D getPoint(double delta ){
+        if (isZero(delta)){
+            return  _p0;
+        }
+        return _p0.add(_dir.scale(delta));
+    }
+
 
     /**
      * @param o Object ( another Ray) to compare

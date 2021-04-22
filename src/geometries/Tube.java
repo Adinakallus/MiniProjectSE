@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /**
@@ -47,5 +49,15 @@ public class Tube implements Geometry {
      return n.normalize();
     }
 
+
+    /**
+     * override findIntersections
+     * @param ray
+     * @return list of all intersection points with Tube
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
+    }
 
 }

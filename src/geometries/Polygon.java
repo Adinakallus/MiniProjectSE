@@ -95,4 +95,12 @@ public class Polygon implements Geometry {
         result += '>';
         return result;
     }
+    /**
+     * finds intersections of given ray with polygon
+     * @param ray ray to find intersections with
+     * @return list of all intersection points with polygon
+     */
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
+    }
 }

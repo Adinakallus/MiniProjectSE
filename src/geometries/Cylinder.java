@@ -4,6 +4,8 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 /**
  * Cylinder inherits from Tube
  *
@@ -30,4 +32,13 @@ public class Cylinder extends Tube {   // implements Geometry
         return null;
     }
 
+    /**
+     * override findIntersections
+     * @param ray
+     * @return list of all intersection points with Cylinder
+     */
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        return null;
+    }
 }

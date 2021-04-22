@@ -2,7 +2,10 @@ package geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
@@ -67,5 +70,58 @@ void testConstructor(){
         assertTrue(isZero(v2.dotProduct(normal)),"ERROR: normal not orthogonal to plane");
     }
 
+
+    /**
+     * Test method for {@link geometries.Plane#findIntersections(primitives.Ray)}.
+     */
+    @Test
+   void testFindIntersections() {
+        Plane pl = new Plane(new Point3D(0, 0, 1), new Vector(1, 1, 1));
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: Ray intersects plane
+        assertEquals(List.of(new Point3D(1, 0, 0)),
+                pl.findIntersections(new Ray(new Point3D(0.5, 0, 0), new Vector(1, 0, 0))),
+                "Incorrect plane intersection");
+
+        // TC02: Ray doesn't intersect plane
+        assertEquals(null, pl.findIntersections(new Ray(new Point3D(2, 0, 0), new Vector(1, 0, 0))),
+                "findIntersections didn't return null");
+
+        // =============== Boundary Values Tests ==================
+
+        // **** Group: Ray is parallel to plane
+        // TC11: ray not included in plane
+        assertEquals(null, pl.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(0, 1, -1))),
+                "findIntersections didn't return null for parallel ray");
+
+        // TC12:ray included in plane:
+        assertEquals(null, pl.findIntersections(new Ray(new Point3D(0, 0.5, .5), new Vector(0, 1, -1))),
+                "findIntersections didn't return null when ray is included in plane ");
+
+
+        // **** Group: Ray orthogonal to plane
+        // TC13: Ray starts before plane
+        assertEquals(List.of(new Point3D(1d / 3, 1d / 3, 1d / 3)),
+                pl.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(-1, -1, -1))),
+                "Incorrect plane intersection for orthogonal ray that starts before plane ");
+
+        // TC14: Ray starts after plane
+        assertEquals(null, pl.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(1, 1, 1))),
+                "Incorrect plane intersection for orthogonal ray that starts after plane");
+
+        // TC15: Ray starts in plane
+        assertEquals(null, pl.findIntersections(new Ray(new Point3D(0, 0.5, 0.5), new Vector(1, 1, 1))),
+                "Incorrect plane intersection for orthogonal ray that starts in plane");
+
+
+        //// **** Group: Spacial cases
+        // TC16: non orthogonal or parallel ray that starts from plane
+        assertEquals(null, pl.findIntersections(new Ray(new Point3D(0, 0.5, 0.5), new Vector(1, 1, 0))),
+                "Incorrect plane intersection for ray that starts from plane");
+
+        //TC17: ray starts from plane's Q point
+        assertEquals(null, pl.findIntersections(new Ray(new Point3D(0, 0, 1), new Vector(1, 1, 0))),
+                "Incorrect plane intersection when P0=Q");
+    }
 
 }
