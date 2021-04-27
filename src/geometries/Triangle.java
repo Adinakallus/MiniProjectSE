@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * Triangle inherits from polygon
  *
- *@author Adina Kallus and Hadassa Israel
+ * @author Adina Kallus and Hadassa Israel
  */
-public class Triangle extends Polygon{
+public class Triangle extends Polygon {
 
     /**
      * Constructor for Triangle class
@@ -27,6 +27,7 @@ public class Triangle extends Polygon{
 
     /**
      * override findIntersections
+     *
      * @param ray
      * @return list of all intersection points with triangle
      */
@@ -35,5 +36,5 @@ public class Triangle extends Polygon{
         return super.findIntersections(ray);
     }
 
-    }
+}
 
