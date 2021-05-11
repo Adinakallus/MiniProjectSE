@@ -29,8 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
             cam.setViewPlaneSize(3, 3);
             cam.setDistance(1);
 
-            int nX =3;
-            int nY =3;
+            int nX = 3;
+            int nY = 3;
             //view plane 3X3 (WxH 3X3 & nx,ny =3 => Rx,Ry =1)
             for (int i = 0; i < nY; ++i) {
                 for (int j = 0; j < nX; ++j) {
@@ -50,7 +50,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         public void cameraRaySphereIntegration() {
             Camera cam1 = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, -1, 0));
 
-            Camera cam2 = new Camera (new Point3D(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, -1, 0));
+            Camera cam2 = new Camera(new Point3D(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, -1, 0));
 
 
             // TC01: Small Sphere 2 points
@@ -102,6 +102,4 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
             // TC02: Medium triangle 2 points
             assertCountIntersections(cam, new Triangle(new Point3D(1, -1, -2), new Point3D(-1, -1, -2), new Point3D(0, 20, -2)), 2);
         }
-
     }
-
