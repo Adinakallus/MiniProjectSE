@@ -12,11 +12,14 @@ public class Geometries implements Intersectable {
     private List<Intersectable> _intersectables = new ArrayList<>();
 
 
- public Geometries(Intersectable... geom) {
-    add(geom);
-}
+    public Geometries(Intersectable... geom) {
+        add(geom);
+    }
 
     public void add(Intersectable... geom) {
+        if (_intersectables == null) {
+            _intersectables = new ArrayList<>();
+        }
         Collections.addAll(_intersectables, geom);
     }
 
@@ -26,10 +29,10 @@ public class Geometries implements Intersectable {
         for (Intersectable geometry : _intersectables) {
             //get intersection points of a particular geometry from _intersectables
             List<Point3D> geomPoints = geometry.findIntersections(ray);
-            if(geomPoints!= null){
+            if (geomPoints != null) {
                 //first time initialize result to new LinkList
-                if(result== null){
-                    result= new LinkedList<>();
+                if (result == null) {
+                    result = new LinkedList<>();
                 }
                 //add all item points to the resulting list
                 result.addAll(geomPoints);

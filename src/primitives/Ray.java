@@ -1,12 +1,16 @@
 package primitives;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import java.awt.*;
 
 import static primitives.Util.isZero;
 
 /**
  * Ray for RayTracing
  *
- *@author Adina Kallus and Hadassa Israel
+ * @author Adina Kallus and Hadassa Israel
  */
 public class Ray {
     Point3D _p0;
@@ -16,18 +20,18 @@ public class Ray {
     /**
      * Constructor for Ray class
      *
-     * @param p0 starting point of Ray
+     * @param p0  starting point of Ray
      * @param dir direction of Ray
      */
     public Ray(Point3D p0, Vector dir) {
-      _p0 = p0;
-      _dir = dir.normalized();
+        _p0 = p0;
+        _dir = dir.normalized();
     }
 
 
-/**
- * @return p0
- */
+    /**
+     * @return p0
+     */
     public Point3D getP0() {
         return _p0;
     }
@@ -41,9 +45,9 @@ public class Ray {
     }
 
 
-    public Point3D getPoint(double delta ){
-        if (isZero(delta)){
-            return  _p0;
+    public Point3D getPoint(double delta) {
+        if (isZero(delta)) {
+            return _p0;
         }
         return _p0.add(_dir.scale(delta));
     }
@@ -68,5 +72,27 @@ public class Ray {
                 "p0=" + _p0 +
                 ", dir=" + _dir +
                 '}';
+    }
+
+    /**
+     * @param points list of 3d points
+     * @return the closest point to _p0
+     */
+    public Point3D findClosestPoint(List<Point3D> points) {
+        if(points.isEmpty())
+            return null;
+
+        double minDistance = _p0.distance(points.get(0));
+        Point3D closest = points.get(0);
+
+        for (int i = 1; i < points.size(); i++) {
+            double dist = _p0.distance(points.get(i));
+            if (dist < minDistance) {
+                minDistance = dist;
+                closest = points.get(i);
+            }
+        }
+        return closest;
+
     }
 }
