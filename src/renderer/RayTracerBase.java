@@ -21,8 +21,8 @@ abstract public class RayTracerBase {
     }
 
     /**
-     * @param points list of 3d points
-     * @return the closest point to _p0
+     * @param ray ray to trace
+     * @return color of scene at the intersection point
      */
     abstract public Color traceRay(Ray ray);
 

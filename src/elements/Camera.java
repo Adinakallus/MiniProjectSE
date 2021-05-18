@@ -6,8 +6,14 @@ import primitives.Vector;
 
 import static primitives.Util.isZero;
 
-
+/**
+ * camera class represents the point
+ * from which all the rays start,
+ * and continue through the viewPlane towards the scene
+ *
+ */
 public class Camera {
+
     private Vector _vUp;
     private Vector _vRight;
     private Vector _vTo;

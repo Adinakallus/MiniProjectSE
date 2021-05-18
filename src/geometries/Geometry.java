@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.Color;
 import primitives.Point3D;
 import primitives.Vector;
 
@@ -15,4 +16,7 @@ public interface Geometry extends Intersectable {
      * @return the normal to the geometry
      */
     Vector getNormal(Point3D point3D);
+
+
+
 }
