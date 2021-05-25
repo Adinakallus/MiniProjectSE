@@ -16,7 +16,7 @@ public class Render {
 
     public ImageWriter imageWriter;
     public Camera camera;
-    public RayTracerBasic rayTracer;
+    public BasicRayTracer rayTracer;
 
 
     /**
@@ -46,11 +46,11 @@ public class Render {
     /**
      *
      * set rayTracer
-     * @param rayTracerBasic ray tracer for scene
+     * @param basicRayTracer ray tracer for scene
      * @return current render
      */
-    public Render setRayTracer(RayTracerBasic rayTracerBasic) {
-        this.rayTracer = rayTracerBasic;
+    public Render setRayTracer(BasicRayTracer basicRayTracer) {
+        this.rayTracer = basicRayTracer;
         return this;
     }
 
@@ -106,6 +106,8 @@ public class Render {
             throw new MissingResourceException("image writer is null", "Render","ImageWriter");
         imageWriter.writeToImage();
     }
+
+
 
 }
 

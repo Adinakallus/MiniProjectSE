@@ -3,7 +3,6 @@ import elements.*;
 import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.*;
-import renderer.*;
 import scene.Scene;
 
 /**
@@ -40,10 +39,10 @@ public class RenderTests {
         Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(camera) //
-                .setRayTracer(new RayTracerBasic(scene));
+                .setRayTracer(new BasicRayTracer(scene));
 
         render.renderImage();
-        render.printGrid( 100, new Color(java.awt.Color.YELLOW));
+        render.printGrid(100, new Color(java.awt.Color.YELLOW));
         render.writeToImage();
     }
 
@@ -60,7 +59,7 @@ public class RenderTests {
         Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(camera) //
-                .setRayTracer(new RayTracerBasic(scene));
+                .setRayTracer(new BasicRayTracer(scene));
 
         render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.YELLOW));
@@ -71,7 +70,7 @@ public class RenderTests {
     /**
      * Produce a scene with basic 3D model - including individual lights of the bodies
      * and render it into a png image with a grid
-
+     */
     @Test
     public void basicRenderMultiColorTest() {
         Scene scene = new Scene("Test scene")//
@@ -91,12 +90,10 @@ public class RenderTests {
         Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(camera) //
-                .setRayTracer(new RayTracerBasic(scene));
+                .setRayTracer(new BasicRayTracer(scene));
 
         render.renderImage();
         render.printGrid(100, new Color(java.awt.Color.WHITE));
         render.writeToImage();
     }
-    */
 }
-
