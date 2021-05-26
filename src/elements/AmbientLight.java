@@ -8,7 +8,7 @@ public class AmbientLight extends Light {
     /**
      * default constructor- restart intensity to black
      */
-    protected AmbientLight() {
+    public AmbientLight() {
         super(Color.BLACK);
     }
 

@@ -30,7 +30,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     public PointLight setKc(double kc) {
-        this._kc = kc;
+        _kc = kc;
         return this;
     }
 
@@ -39,7 +39,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     public PointLight setKl(double kl) {
-        this._kl = kl;
+        _kl = kl;
         return this;
     }
 
@@ -48,7 +48,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     public PointLight setKq(double kq) {
-        this._kq = kq;
+        _kq = kq;
         return this;
     }
 
@@ -66,6 +66,6 @@ public class PointLight extends Light implements LightSource {
 
     @Override
     public Vector getL(Point3D p) {
-        return p.subtract(_position).normalized();
+        return p.subtract(_position).normalize();
     }
 }

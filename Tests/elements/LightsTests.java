@@ -10,7 +10,7 @@ import primitives.Vector;
 import renderer.BasicRayTracer;
 import renderer.ImageWriter;
 import renderer.Render;
-import scene.Scene;
+import _scene.Scene;
 
 /**
  * Test rendering a basic image
@@ -149,7 +149,7 @@ public class LightsTests {
      * Produce a picture of a two triangles lighted by directional, point and spot light
      */
     @Test
-    public void triangleAllLights(){
+    public void triangleAllLights() {
         scene2.geometries.add(triangle1.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)),
                 triangle2.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300)));
         scene2.lights.add(new DirectionalLight(new Color(300, 150, 150), new Vector(0, 0, -1)));
@@ -170,7 +170,7 @@ public class LightsTests {
      * Produce a picture of a sphere lighted by directional, point and spot light
      */
     @Test
-    public void sphereAllLights(){
+    public void sphereAllLights() {
         scene1.geometries.add(sphere);
         scene1.lights.add(new DirectionalLight(new Color(500, 300, 0), new Vector(5, 5, -1)));
         scene1.lights.add(new PointLight(new Color(500, 300, 0), new Point3D(150, 150, 50))//
