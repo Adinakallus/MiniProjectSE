@@ -8,6 +8,13 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * Geometries class represents all the Geometries together
+ *
+ *@author Adina Kallus and Hadassa Israel
+ */
+
 public class Geometries implements Intersectable {
     private List<Intersectable> _intersectables = new ArrayList<>();
 
@@ -16,6 +23,10 @@ public class Geometries implements Intersectable {
         add(geom);
     }
 
+    /**
+     *adds geometries to list
+     * @param geom the geometry that we add to the list
+     */
     public void add(Intersectable... geom) {
         if (_intersectables == null) {
             _intersectables = new ArrayList<>();

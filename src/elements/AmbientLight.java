@@ -2,6 +2,12 @@ package elements;
 
 import primitives.Color;
 
+/**
+ * AmbientLight class that represents the AmbientLight of the scene
+ *
+ *  @author Adina Kallus and Hadassa Israel
+ */
+
 public class AmbientLight extends Light {
 
 
@@ -13,7 +19,7 @@ public class AmbientLight extends Light {
     }
 
     /**
-     * constructor for ambient light
+     * creating an ambient light
      * @param iA color of ambient light
      * @param kA intensity of the ambient light
      */

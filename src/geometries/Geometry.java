@@ -11,16 +11,22 @@ import primitives.Vector;
  *@author Adina Kallus and Hadassa Israel
  */
 public abstract class Geometry implements Intersectable {
-    /**
-     * defult emission color is black
-     */
-    protected Color _emission=Color.BLACK;
-    protected Material _material=new Material();
 
+    protected Color _emission=Color.BLACK; //default emission color is black
+    protected Material _material=new Material();//the material of the geometry
+
+    /**
+     * @return material
+     */
     public Material getMaterial() {
         return _material;
     }
 
+    /**
+     *
+     * @param material
+     * @return
+     */
     public Geometry setMaterial(Material material) {
         _material = material;
         return this;
@@ -47,7 +53,7 @@ public abstract class Geometry implements Intersectable {
     /**
      *
      * @param point3D should be null for flat geometries
-     * @return the normal to the geometry
+     * @return the Vector that is normal to the geometry
      */
   public abstract   Vector getNormal(Point3D point3D);
 
