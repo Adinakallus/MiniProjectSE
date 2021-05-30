@@ -13,14 +13,20 @@ import java.util.stream.Collectors;
  *@author Adina Kallus and Hadassa Israel
  */
 public interface Intersectable {
+    /**
+     *
+     * pds to combine a point and geometry that its on,
+     * so we can know the color of the point while ray tracing
+     *
+     */
     public static class GeoPoint{
         public Geometry geometry;
         public Point3D point;
 
         /**
-         *
-         * @param geometry
-         * @param point
+         * constructor for geometry
+         * @param geometry  the geometry that point is on
+         * @param point the point who's color we want
          */
         public GeoPoint(Geometry geometry, Point3D point) {
             this.geometry = geometry;
@@ -28,9 +34,9 @@ public interface Intersectable {
         }
 
         /**
-         *
+         * equals method compares two geoPoints
          * @param o
-         * @return
+         * @return true if geoPoints are equal to each other, and false otherwise
          */
         @Override
         public boolean equals(Object o) {
@@ -41,11 +47,10 @@ public interface Intersectable {
         }
 
     }
-
     /**
-     *
-     * @param ray- check the intersections between it and the Geometry shape
-     * @return a list of all the intersections points
+     *  finds all intersections between received ray and all the geometries in the list
+     * @param ray-  ray which we want to find the intersections with
+     * @return list of all intersection points
      */
     default List<Point3D> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
@@ -55,6 +60,11 @@ public interface Intersectable {
                 .collect(Collectors.toList());
     }
 
+    /**
+     *  finds all intersections between received ray and all the geometries in the list
+     * @param ray-  ray which we want to find the intersections with
+     * @return list of all geoPoints that had an intersection with ray
+     */
     List<GeoPoint> findGeoIntersections(Ray ray);
 
 }

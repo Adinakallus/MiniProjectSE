@@ -10,7 +10,7 @@ import java.util.List;
 
 
 /**
- * Geometries class represents all the Geometries together
+ * Geometries class represents a group of multiple Geometries together
  *
  *@author Adina Kallus and Hadassa Israel
  */
@@ -18,7 +18,10 @@ import java.util.List;
 public class Geometries implements Intersectable {
     private List<Intersectable> _intersectables = new ArrayList<>();
 
-
+    /**
+     * constructs a group of geometries
+     * @param geom list of geometries we want to group together
+     */
     public Geometries(Intersectable... geom) {
         add(geom);
     }
@@ -34,6 +37,11 @@ public class Geometries implements Intersectable {
         Collections.addAll(_intersectables, geom);
     }
 
+    /**
+     *  finds all intersections between received ray and all the geometries in the list
+     * @param ray-  ray which we want to find the intersections with
+     * @return list of all intersection points
+     */
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         List<Point3D> result = null;
@@ -52,6 +60,11 @@ public class Geometries implements Intersectable {
         return result;
     }
 
+    /**
+     *  finds all intersections between received ray and all the geometries in the list
+     * @param ray-  ray which we want to find the intersections with
+     * @return list of all geoPoints that had an intersection with ray
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         List<GeoPoint> result = null;

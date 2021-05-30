@@ -23,9 +23,17 @@ public abstract class Geometry implements Intersectable {
     }
 
     /**
-     *
+     * getter method for the emission
+     * @return emission
+     */
+    public Color getEmission() {
+        return _emission;
+    }
+
+    /**
+     * chaining setter method for material
      * @param material
-     * @return
+     * @return current geometry object with updated material
      */
     public Geometry setMaterial(Material material) {
         _material = material;
@@ -35,23 +43,16 @@ public abstract class Geometry implements Intersectable {
     /**
      * chaining setter method for the emission
      * @param emission: emission color inherent to the current geometry
-     * @return this:the current geometry object
+     * @return current geometry object with updated material
      */
     public Geometry setEmission(Color emission) {
         _emission = emission;
         return this;
     }
 
-    /**
-     * getter method for the emission
-     * @return emission
-     */
-    public Color getEmission() {
-        return _emission;
-    }
 
     /**
-     *
+     * getter method for normal to geometry
      * @param point3D should be null for flat geometries
      * @return the Vector that is normal to the geometry
      */

@@ -56,9 +56,9 @@ public class Plane extends Geometry {
     }
 
     /**
-     *
-     * @param point
-     * @return
+     * getter for normal to plane
+     * @param point should be null for flat geometries
+     * @return normal to plane
      */
     @Override
     public Vector getNormal(Point3D point) {
@@ -68,7 +68,11 @@ public class Plane extends Geometry {
 
 
 
-
+    /**
+     * override findGeoIntersections
+     * @param ray
+     * @return list of all geoPoints that intersected with ray
+     */
     @Override
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         Point3D P0 = ray.getP0();
@@ -109,7 +113,10 @@ public class Plane extends Geometry {
         return List.of(new GeoPoint(this, point));
     }
 
-
+    /**
+     * override toString
+     * @return string with details of the plane
+     */
     @Override
     public String toString() {
         return "Plane{" +

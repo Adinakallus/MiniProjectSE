@@ -30,7 +30,7 @@ public class Cylinder extends Tube {   // implements Geometry
     /**
      * getter for normal
      * @param point3D point on cylinder which we want the normal to
-     * @return
+     * @return normal to cylinder at point3D
      */
     @Override
     public Vector getNormal(Point3D point3D){
