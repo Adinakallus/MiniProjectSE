@@ -91,6 +91,7 @@ public class Point3D {
     }
 
     /**
+     * finds the distance between 2 3D points
      * @param point point3D from whom we want to get the distance
      * @return  distance between 2  3D points
      */

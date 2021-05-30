@@ -154,11 +154,11 @@ public class LightsTests {
         scene1.geometries.add(sphere);
         scene1.lights.add(new DirectionalLight(new Color(500, 300, 0), new Vector(5, 5, -1)));
         scene1.lights.add(new PointLight(new Color(500, 300, 0), new Point3D(150, 150, 50))//
-                .setKl(0.00001).setKq(0.000001));
+                .setKl(0.0000001).setKq(0.00000001));
         scene1.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(0, 0, 50), new Vector(10, -10, -2)) //
-                .setKl(0.00001).setKq(0.00000001));
+                .setKl(0.0000001).setKq(0.0000000001));
 
-        ImageWriter imageWriter = new ImageWriter("lightSphere", 500, 500);
+        ImageWriter imageWriter = new ImageWriter("sphereMultipleLights", 500, 500);
         Render render = new Render()//
                 .setImageWriter(imageWriter) //
                 .setCamera(camera1) //
