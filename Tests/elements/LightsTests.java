@@ -152,7 +152,7 @@ public class LightsTests {
     @Test
     public void sphereMultipleLights() {
         scene1.geometries.add(sphere);
-        scene1.lights.add(new DirectionalLight(new Color(500, 300, 0), new Vector(5, 5, -1)));
+        scene1.lights.add(new DirectionalLight(new Color(500, 300, 0), new Vector(10, 10, -1)));
         scene1.lights.add(new PointLight(new Color(500, 300, 0), new Point3D(150, 150, 50))//
                 .setKl(0.0000001).setKq(0.00000001));
         scene1.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(0, 0, 50), new Vector(10, -10, -2)) //
