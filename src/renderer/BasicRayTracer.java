@@ -31,6 +31,8 @@ public class BasicRayTracer extends RayTracerBase {
     }
 
     /**
+     * find intersections between ray and geometries in the scene,
+     * and return the color of the geometry at the intersection point
      * @param ray ray to trace
      * @return color of scene at the intersection point
      */
