@@ -83,7 +83,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * finds the direction of the spotLight at the point that was received
+     * finds the direction of the light at the point that was received
      * @param p point 3D
      * @return the intensity of the light in the point
      */
@@ -95,7 +95,7 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * finds the direction of the spotLight at the point that was received
+     * finds the direction of the light at the point that was received
      * @param p 3D point
      * @return a vector of the direction of the pointLight that is in the point
      */

@@ -36,7 +36,7 @@ public class Material {
 
     /**
      * sets a new value in kd
-     * @param ks a new variable that will be inserted with the new value
+     * @param ks value to set ks to
      * @return the current material
      */
     public Material setKs(double ks) {
@@ -53,7 +53,7 @@ public class Material {
 
     /**
      * sets a new value in shininess
-     * @param nShininess a new variable that will be inserted with the new value
+     * @param nShininess  value to set nShininess to
      * @return the current material
      */
     public Material setShininess(int nShininess) {

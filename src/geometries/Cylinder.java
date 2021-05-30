@@ -27,6 +27,11 @@ public class Cylinder extends Tube {   // implements Geometry
         _height = height;
     }
 
+    /**
+     * getter for normal
+     * @param point3D point on cylinder which we want the normal to
+     * @return
+     */
     @Override
     public Vector getNormal(Point3D point3D){
         return null;

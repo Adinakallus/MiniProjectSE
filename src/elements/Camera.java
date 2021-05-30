@@ -23,31 +23,58 @@ public class Camera {
     private double _height;
     private double _distance;
 
-
+    /**
+     *
+     * @return vTo
+     */
     public Vector getvTo() {
         return _vTo;
     }
 
+    /**
+     *
+     * @return vRight
+     */
     public Vector getvRight() {
         return _vRight;
     }
 
+    /**
+     *
+     * @return vUp
+     */
     public Vector getvUp() {
         return _vUp;
     }
 
+    /**
+     *
+     * @return po
+     */
     public Point3D getPo() {
         return _po;
     }
 
+    /**
+     *
+     * @return height
+     */
     public double getHeight() {
         return _height;
     }
 
+    /**
+     *
+     * @return width
+     */
     public double getWidth() {
         return _width;
     }
 
+    /**
+     *
+     * @return distance
+     */
     public double getDistance() {
         return _distance;
     }

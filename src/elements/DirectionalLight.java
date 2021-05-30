@@ -5,7 +5,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 /**
- * DirectionalLight class represent a light source that his intensity of the object doesn't depend
+ * DirectionalLight class represent a light source where the intensity doesn't depend
  * on the distance between the light source and the object
  *
  *  @author Adina Kallus and Hadassa Israel
@@ -15,8 +15,8 @@ public class DirectionalLight extends Light implements LightSource{
     private final Vector _direction;
 
     /**
-     * constructor of the directional light
-     * @param intensity  color the intensity of the light
+     * constructor for directional light
+     * @param intensity   the intensity of the light
      * @param direction the vector with the direction of the light
      */
     protected DirectionalLight(Color intensity, Vector direction) {
