@@ -34,11 +34,10 @@ public class Ray {
     }
 
     /**
-     * Constructor for Ray class
-     *
+     * Constructor for ray that moves it's starting point
      * @param point starting point of Ray
      * @param dir direction of Ray
-     * @param n ????
+     * @param n the normal line to which we want to move the head of the ray
      *
      */
     public Ray(Point3D point, Vector dir, Vector n) {
@@ -59,7 +58,6 @@ public class Ray {
     /**
      * @return new vector with same head as dir
      */
-
     public Vector getDir() {
         return new Vector(_dir.getHead());
     }
@@ -95,6 +93,7 @@ public class Ray {
     }
 
     /**
+     * finds the point in the list that is closest to _p0
      * @param points list of 3d points
      * @return the closest point to _p0
      */
@@ -116,6 +115,11 @@ public class Ray {
 
     }
 
+    /**
+     * finds GeoPoint with closest intersection to rays starting point
+     * @param intersections list of intersections with the ray and the geometries
+     * @return closets intersection point to _p0
+     */
     public GeoPoint findClosestGeoPoint(List<GeoPoint> intersections) {
         if(intersections.isEmpty())
             return null;

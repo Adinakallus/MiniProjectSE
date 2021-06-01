@@ -10,7 +10,7 @@ public class Material {
     public double _ks=0;
     public int _nShininess=0;
     public double kt =0d;//opaque[0.0-1.0]
-    public double kr =0d;//matt serface[0.0-1.0]
+    public double kr =0d;//matt surface[0.0-1.0]
 
     public double getKt() {
         return kt;
