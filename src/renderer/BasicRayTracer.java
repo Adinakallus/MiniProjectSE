@@ -12,7 +12,7 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
-import _scene.Scene;
+import scene.Scene;
 
 
 import java.util.List;
