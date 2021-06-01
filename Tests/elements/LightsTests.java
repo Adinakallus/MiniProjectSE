@@ -10,7 +10,7 @@ import primitives.Vector;
 import renderer.BasicRayTracer;
 import renderer.ImageWriter;
 import renderer.Render;
-import _scene.Scene;
+import scene.Scene;
 
 /**
  * Test rendering a basic image

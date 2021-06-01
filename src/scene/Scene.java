@@ -1,4 +1,4 @@
-package _scene;
+package scene;
 
 import elements.AmbientLight;
 import elements.LightSource;

@@ -3,7 +3,7 @@ import elements.*;
 import geometries.*;
 import org.junit.jupiter.api.Test;
 import primitives.*;
-import _scene.Scene;
+import scene.Scene;
 
 /**
  * Test rendering a basic image
