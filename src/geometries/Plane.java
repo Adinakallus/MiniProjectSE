@@ -71,10 +71,11 @@ public class Plane extends Geometry {
     /**
      * override findGeoIntersections
      * @param ray
+     * @param maxDistance the maximum distance
      * @return list of all geoPoints that intersected with ray
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         Point3D P0 = ray.getP0();
         Vector v = ray.getDir();
 
@@ -104,7 +105,7 @@ public class Plane extends Geometry {
 
         double  t = alignZero(nP0Q0  / nv);
 
-        if (t <=0){
+        if (t <=0||alignZero(t-maxDistance)>0){
             return  null;
         }
 
@@ -112,6 +113,8 @@ public class Plane extends Geometry {
 
         return List.of(new GeoPoint(this, point));
     }
+
+
 
     /**
      * override toString

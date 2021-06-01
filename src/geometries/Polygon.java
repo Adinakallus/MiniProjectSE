@@ -105,10 +105,10 @@ public class Polygon extends Geometry {
      * @return list of all intersection points with polygon
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
 
 
-        List<GeoPoint> result = _plane.findGeoIntersections(ray);
+        List<GeoPoint> result = _plane.findGeoIntersections(ray, maxDistance);
 
         if (result == null) {
             return null;

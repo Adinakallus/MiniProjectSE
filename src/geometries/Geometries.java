@@ -66,11 +66,11 @@ public class Geometries implements Intersectable {
      * @return list of all geoPoints that had an intersection with ray
      */
     @Override
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
         List<GeoPoint> result = null;
         for (Intersectable geometry : _intersectables) {
             //get intersection points of a particular geometry from _intersectables
-            List<GeoPoint> geomPoints = geometry.findGeoIntersections(ray);
+            List<GeoPoint> geomPoints = geometry.findGeoIntersections(ray,maxDistance);
             if (geomPoints != null) {
                 //first time initialize result to new LinkList
                 if (result == null) {

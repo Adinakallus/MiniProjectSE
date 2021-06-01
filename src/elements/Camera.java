@@ -111,7 +111,7 @@ public class Camera {
     }
 
     /**
-     * sets the distance between view plane and camera ?
+     * sets the distance between view plane and camera
      *
      * @param distance the distance of the view plane
      * @return the current camera

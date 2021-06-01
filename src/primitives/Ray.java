@@ -17,8 +17,9 @@ import static primitives.Util.isZero;
  * @author Adina Kallus and Hadassa Israel
  */
 public class Ray {
-    Point3D _p0;
-    Vector _dir;
+   private static final double DELTA = 0.1;
+   private final Point3D _p0;
+   private final Vector _dir;
 
 
     /**
@@ -30,6 +31,21 @@ public class Ray {
     public Ray(Point3D p0, Vector dir) {
         _p0 = p0;
         _dir = dir.normalized();
+    }
+
+    /**
+     * Constructor for Ray class
+     *
+     * @param point starting point of Ray
+     * @param dir direction of Ray
+     * @param n ????
+     *
+     */
+    public Ray(Point3D point, Vector dir, Vector n) {
+        Vector delta = n.scale(n.dotProduct(dir) > 0 ? DELTA : - DELTA);
+        Point3D p=point.add(delta);
+        _p0=p;
+        _dir=dir;
     }
 
 

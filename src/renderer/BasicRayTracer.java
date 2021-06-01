@@ -8,6 +8,7 @@ import static geometries.Intersectable.GeoPoint;
 import static primitives.Util.alignZero;
 
 import primitives.Color;
+import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
@@ -22,6 +23,7 @@ import java.util.List;
         * @author Adina Kallus and Hadassa Israel
         */
 public class BasicRayTracer extends RayTracerBase {
+
     /**
      * @param scene
      * @return scene
@@ -57,14 +59,12 @@ public class BasicRayTracer extends RayTracerBase {
      * @param ray  ray that is intersecting the point
      * @return  color of the point
      */
-
-        private Color calcColor(GeoPoint geoPoint, Ray ray) {
-            Color emissionColor = geoPoint.geometry.getEmission();
-            Color basicColor = _scene.ambientLight.getIntensity().add(emissionColor);
-            return basicColor.add(calcLocalEffects(geoPoint, ray));
+    private Color calcColor(GeoPoint geoPoint, Ray ray) {
+        Color emissionColor = geoPoint.geometry.getEmission();
+        Color basicColor = _scene.ambientLight.getIntensity().add(emissionColor);
+        return basicColor.add(calcLocalEffects(geoPoint, ray));
 
     }
-
 
     /**
      * get a GeoPoint on a certain object and a ray and find the color in this point by considering all the effects (lights) in the scene
@@ -86,13 +86,30 @@ public class BasicRayTracer extends RayTracerBase {
             Vector l = lightSource.getL(intersection.point); //get the direction of the current light
             double nl = alignZero(n.dotProduct(l)); //the rate between the normal of the geometry and the direction of the light
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                Color lightIntensity = lightSource.getIntensity(intersection.point); //calculate the intensity in the intersection point
-                //calculate the color using the Phong model formula
-                color = color.add(calcDiffusive(kd, l, n, lightIntensity),
-                        calcSpecular(ks, l, n, v, nShininess, lightIntensity)); //add the color of this light to the main color
+                if (unshaded(lightSource, l, n, intersection.point)) {
+                    Color lightIntensity = lightSource.getIntensity(intersection.point); //calculate the intensity in the intersection point
+                    //calculate the color using the Phong model formula
+                    color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+                            calcSpecular(ks, l, n, v, nShininess, lightIntensity)); //add the color of this light to the main color
+                }
             }
         }
         return color;
+    }
+
+    /**
+     * boolean method to determine if light reaches point or if an object is blocking it, creating a shade
+     * @param light light source that we would like to determine if it reaches point
+     * @param l vector from light source to point
+     * @param n normal at the point
+     * @param point point that we would like to know if the light reaches it
+     * @return true- if the light reaches the object, otherwise- false
+     */
+    private boolean unshaded(LightSource light, Vector l, Vector n, Point3D point) {
+         Vector dir=l.scale(-1);//vector from point towards light source
+        Ray lightRay=new Ray(point,dir,n);
+        List<GeoPoint> intersections = _scene.geometries.findGeoIntersections(lightRay, light.getDistance(point));
+        return intersections == null;
     }
 
     /**

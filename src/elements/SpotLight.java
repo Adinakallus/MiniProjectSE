@@ -37,4 +37,5 @@ public class SpotLight extends PointLight {
         double cosTheta=_dir.dotProduct(l);
         return super.getIntensity(p).scale(Math.max(0, cosTheta));
     }
+
 }
