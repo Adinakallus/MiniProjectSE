@@ -121,20 +121,19 @@ public class Ray {
      * @return closets intersection point to _p0
      */
     public GeoPoint findClosestGeoPoint(List<GeoPoint> intersections) {
-        if(intersections.isEmpty())
-            return null;
+        if(intersections!=null) {
+            double minDistance = _p0.distance(intersections.get(0).point);
+            GeoPoint closest = intersections.get(0);
 
-        double minDistance = _p0.distance(intersections.get(0).point);
-        GeoPoint closest = intersections.get(0);
-
-        for (GeoPoint gp:intersections) {
-            double dist = gp.point.distance(_p0);
-            if (dist < minDistance) {
-                minDistance = dist;
-                closest = gp;
+            for (GeoPoint gp : intersections) {
+                double dist = gp.point.distance(_p0);
+                if (dist < minDistance) {
+                    minDistance = dist;
+                    closest = gp;
+                }
             }
+            return closest;
         }
-        return closest;
-
+        return null;
     }
 }
