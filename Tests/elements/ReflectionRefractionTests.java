@@ -116,4 +116,7 @@ public class ReflectionRefractionTests {
         render.renderImage();
         render.writeToImage();
     }
+
+
+
 }

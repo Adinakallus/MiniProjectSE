@@ -179,7 +179,6 @@ public class BasicRayTracer extends RayTracerBase {
             if (nl * nv > 0) { // sign(nl) == sing(nv)
                 double ktr = transparency(lightSource, l, n, intersection.point);
                 if (ktr * k > MIN_CALC_COLOR_K) {
-                    Color lightIntensity = lightSource.getIntensity(geopoint.point)).scale(ktr);
 
                     if (unshaded(lightSource, l, n, intersection.point)) {
                         Color lightIntensity = lightSource.getIntensity(intersection.point); //calculate the intensity in the intersection point
