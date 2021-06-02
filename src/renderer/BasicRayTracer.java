@@ -78,7 +78,7 @@ public class BasicRayTracer extends RayTracerBase {
      */
     private Color calcColor(GeoPoint geoPoint, Ray ray, int level , double k) {
         Color color = geoPoint.geometry.getEmission();
-        color =color.add(calcLocalEffects(geoPoint, ray));
+        color =color.add(calcLocalEffects(geoPoint, ray,k));
         if (level == 1) {
             return color;
         }
@@ -163,7 +163,7 @@ public class BasicRayTracer extends RayTracerBase {
      * @param ray  ray sent to the object
      * @return the color at the intersection point
      */
-    private Color calcLocalEffects(GeoPoint intersection, Ray ray){
+    private Color calcLocalEffects(GeoPoint intersection, Ray ray, double k) {
         Vector v = ray.getDir(); //the direction of the ray
         Vector n = intersection.geometry.getNormal(intersection.point); //the normal vector of the geometry
         double nv = alignZero(n.dotProduct(v)); //the rate between the normal of the geometry and the direction of the ray
@@ -177,15 +177,20 @@ public class BasicRayTracer extends RayTracerBase {
             Vector l = lightSource.getL(intersection.point); //get the direction of the current light
             double nl = alignZero(n.dotProduct(l)); //the rate between the normal of the geometry and the direction of the light
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                if (unshaded(lightSource, l, n, intersection.point)) {
-                    Color lightIntensity = lightSource.getIntensity(intersection.point); //calculate the intensity in the intersection point
-                    //calculate the color using the Phong model formula
-                    color = color.add(calcDiffusive(kd, l, n, lightIntensity),
-                            calcSpecular(ks, l, n, v, nShininess, lightIntensity)); //add the color of this light to the main color
+                double ktr = transparency(lightSource, l, n, intersection.point);
+                if (ktr * k > MIN_CALC_COLOR_K) {
+                    Color lightIntensity = lightSource.getIntensity(geopoint.point)).scale(ktr);
+
+                    if (unshaded(lightSource, l, n, intersection.point)) {
+                        Color lightIntensity = lightSource.getIntensity(intersection.point); //calculate the intensity in the intersection point
+                        //calculate the color using the Phong model formula
+                        color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+                                calcSpecular(ks, l, n, v, nShininess, lightIntensity)); //add the color of this light to the main color
+                    }
                 }
             }
+            return color;
         }
-        return color;
     }
 
 
@@ -211,6 +216,31 @@ public class BasicRayTracer extends RayTracerBase {
                 return false;
         }
         return true;
+
+    }
+
+    /**
+     * calculates transparency coefficient in order to achieve accurate amount of transparency
+     * @param light light source that we would like to determine if it reaches point
+     * @param l vector from light source to point
+     * @param n normal at the point
+     * @param point point that we would like to know if the light reaches it
+     * @return transparency coefficient
+     */
+    private double transparency(LightSource light, Vector l, Vector n, Point3D point) {
+        Vector dir=l.scale(-1);//vector from point towards light source
+        Ray lightRay=new Ray(point,dir,n);
+        double lightDistance = light.getDistance(point);//distance between LightSource and point
+        List<GeoPoint> intersections = _scene.geometries.findGeoIntersections(lightRay,lightDistance);
+        if (intersections == null)
+            return 1.0;
+        double ktr=1.0; //multiplication of all recursion coefficient to determine transparency of the point
+        for (GeoPoint gp : intersections) {
+            ktr *= gp.geometry.getMaterial().getKt();
+            if (ktr < MIN_CALC_COLOR_K)
+                return 0.0;
+        }
+        return ktr;
 
     }
 
