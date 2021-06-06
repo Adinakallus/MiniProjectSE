@@ -149,15 +149,15 @@ public class ReflectionRefractionTests {
                         new Point3D(670, 670, 3000)) //
                         .setEmission(new Color(20, 20, 20)) //
                         .setMaterial(new Material().setKr(1)),
-                new Triangle(new Point3D(-1200, -1000, 500), new Point3D(-700,-1000, 500),
-                new Point3D(-600, -200,2000))
+                new Triangle(new Point3D(-1200, -1000, 500), new Point3D(-300,-1000, 500),
+                new Point3D(-450, -200,-3000))
                 .setEmission(new Color(20 ,1, 0))
                 .setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20).setKt(0.9)));
 
         scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
                 .setKl(0.00001).setKq(0.000005));
 
-        ImageWriter imageWriter = new ImageWriter("allEffectsTest8", 500, 500);
+        ImageWriter imageWriter = new ImageWriter("allEffectsTest", 500, 500);
         Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(camera) //
