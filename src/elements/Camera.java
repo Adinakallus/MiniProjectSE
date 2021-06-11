@@ -22,9 +22,12 @@ public class Camera {
     private double _width;
     private double _height;
     private double _distance;
+    private boolean _dof;
+    private double _aperture;
+    private int _amountOfRays;
+    private double _focalDistance;
 
     /**
-     *
      * @return vTo
      */
     public Vector getvTo() {
@@ -32,7 +35,6 @@ public class Camera {
     }
 
     /**
-     *
      * @return vRight
      */
     public Vector getvRight() {
@@ -40,7 +42,6 @@ public class Camera {
     }
 
     /**
-     *
      * @return vUp
      */
     public Vector getvUp() {
@@ -48,7 +49,6 @@ public class Camera {
     }
 
     /**
-     *
      * @return po
      */
     public Point3D getPo() {
@@ -56,7 +56,6 @@ public class Camera {
     }
 
     /**
-     *
      * @return height
      */
     public double getHeight() {
@@ -64,7 +63,6 @@ public class Camera {
     }
 
     /**
-     *
      * @return width
      */
     public double getWidth() {
@@ -72,11 +70,42 @@ public class Camera {
     }
 
     /**
-     *
      * @return distance
      */
     public double getDistance() {
         return _distance;
+    }
+
+    public boolean is_dof() {
+        return _dof;
+    }
+
+    public void set_dof(boolean _dof) {
+        this._dof = _dof;
+    }
+
+    public double get_aperture() {
+        return _aperture;
+    }
+
+    public void set_aperture(double _aperture) {
+        this._aperture = _aperture;
+    }
+
+    public int get_amountOfRays() {
+        return _amountOfRays;
+    }
+
+    public void set_amountOfRays(int _amountOfRays) {
+        this._amountOfRays = _amountOfRays;
+    }
+
+    public double get_focalDistance() {
+        return _focalDistance;
+    }
+
+    public void set_focalDistance(double _focalDistance) {
+        this._focalDistance = _focalDistance;
     }
 
     /**
@@ -126,12 +155,25 @@ public class Camera {
      * constructing a ray passing through pixel(i,j) of the view plane
      * @param nX number of columns in the view plane
      * @param nY number of rows in the view plane
-     * @param j the column of the pixel that we go to?
-     * @param i the row of the pixel that we go to?
+     * @param j the column of the pixel that we go to
+     * @param i the row of the pixel that we go to
      * @return constructed ray
      */
 
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
+        Point3D pij=findPixel(nX, nY, j, i);
+            return new Ray(_po, pij.subtract(_po));
+    }
+
+    /**
+     * helper function to find the center point of pixel ij
+     * @param nX number of columns in the view plane
+     * @param nY number of rows in the view plane
+     * @param j the column of the pixel that we go to
+     * @param i the row of the pixel that we go to
+     * @return center point of pixel ij
+     */
+    private Point3D findPixel(int nX, int nY, int j, int i){
         //Image center
         Point3D Pc = _po.add(_vTo.scale(_distance));
 
@@ -139,26 +181,21 @@ public class Camera {
         double Rx = _width / nX;
         double Ry = _height / nY;
 
-        Point3D Pij = Pc;
+        Point3D pij = Pc;
 
         //calculate the distance of the pixel from the center of the view plane
-        double Yi = -(i - (nY - 1) / 2d) * Ry;
-        double Xj = (j - (nX - 1) / 2d) * Rx;
+        double yi = -(i - (nY - 1) / 2d) * Ry;
+        double xj = (j - (nX - 1) / 2d) * Rx;
 
-        if (isZero(Xj) && isZero(Yi)) {
-            return new Ray(_po, Pij.subtract(_po));
+        if (!isZero(xj)) {
+            pij = pij.add(_vRight.scale(xj));
         }
-        if (isZero(Xj)) {
-            Pij = Pij.add(_vUp.scale(Yi));
-            return new Ray(_po, Pij.subtract(_po));
+        if (!isZero(yi)) {
+            pij = pij.add(_vUp.scale(yi));
         }
-        if (isZero(Yi)) {
-            Pij = Pij.add(_vRight.scale(Xj));
-            return new Ray(_po, Pij.subtract(_po));
-        }
+        return pij;
 
-        Pij = Pij.add(_vRight.scale(Xj).add(_vUp.scale(Yi)));
-        return new Ray(_po, Pij.subtract(_po));
+
 
     }
 
