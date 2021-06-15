@@ -85,8 +85,9 @@ public class Camera {
         return _dof;
     }
 
-    public void set_dof(double _dof) {
+    public Camera set_dof(double _dof) {
         this._dof = _dof;
+        return this;
     }
 
     public double get_aperture() {
