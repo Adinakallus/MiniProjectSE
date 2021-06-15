@@ -1,7 +1,12 @@
 package elements;
 
+import geometries.Sphere;
+import geometries.Triangle;
 import org.junit.jupiter.api.Test;
 import primitives.*;
+import renderer.BasicRayTracer;
+import renderer.ImageWriter;
+import renderer.Render;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -63,4 +68,6 @@ class CameraTest {
                 "Bad ray");
 
     }
+
+
 }

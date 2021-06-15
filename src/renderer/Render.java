@@ -4,6 +4,7 @@ import elements.Camera;
 import primitives.Color;
 import primitives.Ray;
 
+import java.util.List;
 import java.util.MissingResourceException;
 
 /**
@@ -65,18 +66,47 @@ public class Render {
             throw new MissingResourceException("camera is missing", "Render", "camera");
         if (rayTracer == null)
             throw new MissingResourceException("rayTracer is missing", "Render", "rayTracerBase");
-        Color pixelColor= new Color(0,0,0);
-        int nx= imageWriter.getNx();
-        int ny= imageWriter.getNy();
-        for (int i = 0; i < ny; i++) {
-            for (int j = 0; j < nx; j++) {
-             pixelColor=rayTracer.traceRay(camera.constructRayThroughPixel(nx,ny,j,i));
-                imageWriter.writePixel(j, i,pixelColor);
+
+        Color pixelColor = new Color(0, 0, 0);
+        Color background = rayTracer._scene.background;
+
+
+        int nx = imageWriter.getNx();
+        int ny = imageWriter.getNy();
+        Ray mainRay;
+        if (camera.get_dof() == 0) {
+            for (int i = 0; i < ny; i++) {
+                for (int j = 0; j < nx; j++) {
+                    pixelColor = rayTracer.traceRay(camera.constructRayThroughPixel(nx, ny, j, i));
+                    imageWriter.writePixel(j, i, pixelColor);
                 }
             }
         }
+        else{//use depth of field
+            for (int i = 0; i < ny; i++) {
+                for (int j = 0; j < nx; j++) {
+                    mainRay=camera.constructRayThroughPixel(nx, ny,j,i);
+                    List<Ray>beam=camera.createBeamOfRays(nx,ny,j,i);
+                    Color avgColor=calcAverageColor(beam);
+                    imageWriter.writePixel(j, i, avgColor);
+                }
+            }
+        }
+    }
 
 
+
+    /**
+     *
+     */
+    private Color calcAverageColor(List<Ray> beam){
+        Color avgColor = new Color(0, 0, 0);
+        for(Ray r:beam){
+            avgColor = avgColor.add(rayTracer.traceRay(r));
+        }
+        avgColor = avgColor.reduce(beam.size());
+        return avgColor;
+    }
     /**
      *
      * prints a grid onto viewPlane

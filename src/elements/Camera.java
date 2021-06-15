@@ -4,6 +4,10 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
 import static primitives.Util.isZero;
 
 /**
@@ -18,14 +22,15 @@ public class Camera {
     private Vector _vUp;
     private Vector _vRight;
     private Vector _vTo;
-    private Point3D _po;
+    private Point3D _p0;
     private double _width;
     private double _height;
     private double _distance;
-    private boolean _dof;
+    private double _dof;
     private double _aperture;
     private int _amountOfRays;
     private double _focalDistance;
+    private Random _rand;
 
     /**
      * @return vTo
@@ -52,7 +57,7 @@ public class Camera {
      * @return po
      */
     public Point3D getPo() {
-        return _po;
+        return _p0;
     }
 
     /**
@@ -76,11 +81,11 @@ public class Camera {
         return _distance;
     }
 
-    public boolean is_dof() {
+    public double get_dof() {
         return _dof;
     }
 
-    public void set_dof(boolean _dof) {
+    public void set_dof(double _dof) {
         this._dof = _dof;
     }
 
@@ -116,13 +121,14 @@ public class Camera {
      * @param vUP vector up
      */
     public Camera(Point3D p0, Vector vTO, Vector vUP) {
-        _po = p0;
+        _p0 = p0;
         if (!isZero(vTO.dotProduct(vUP))) {
             throw new IllegalArgumentException("vUP is not orthogonal to vTO");
         }
         _vUp = vUP.normalized();
         _vTo = vTO.normalized();
         _vRight = _vTo.crossProduct(_vUp);
+        _rand=new Random();
 
     }
 
@@ -162,8 +168,60 @@ public class Camera {
 
     public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
         Point3D pij=findPixel(nX, nY, j, i);
-            return new Ray(_po, pij.subtract(_po));
+            return new Ray(_p0, pij.subtract(_p0));
     }
+
+    /**
+     * creates a beam of rays that start at the view plane towards the focal
+     point
+     * @param nX amount of pixels in a row
+     * @param nY amount of pixels in a column
+     * @param j index j
+     * @param i index i
+     * @return List of Rays
+     */
+    public List<Ray> createBeamOfRays(int nX, int nY, int j, int i){
+
+        List<Ray> beam = new LinkedList<>();//list of rays representing the beam
+        //find the current pixel
+        Point3D pij=findPixel(nX, nY, j, i);
+
+        //vector towards the focal point
+        Vector mainRayDir = pij.subtract(_p0).normalize();
+
+        //if we are only sending one ray, or the the aperture is almost closed, we only send original ray
+        if (_amountOfRays == 1 || isZero(_aperture)) {
+            beam.add(new Ray(_p0, mainRayDir));
+            return beam;
+        }
+
+        //create ray from pixel on view plane towards focal point, and add it to the beam
+        Ray mainRay=new Ray(pij,mainRayDir);
+        beam.add(mainRay);
+
+        //calculates the focal point
+        Point3D focalPoint = pij.add(mainRayDir.scale(_focalDistance/ _vTo
+                .dotProduct(mainRayDir)));
+
+        //calculates random rays in aperture
+        for (int k = 1; k <_amountOfRays; k++) {
+            Point3D randomRayPoint = new Point3D(pij.getX(),pij.getY(), pij.getZ());//starting point of random ray
+            //calculate random numbers used to move the point
+            double x = _rand.nextDouble() * 2 - 1;
+            double y = Math.sqrt(1 - x * x);
+            double mult = (_rand.nextDouble()-0.5)*_aperture;
+            if (!isZero(x))
+                randomRayPoint = randomRayPoint.add(_vRight.scale(x * mult));
+            if (!isZero(y))
+                randomRayPoint = randomRayPoint.add(_vUp.scale(y * mult));
+            beam.add(new Ray(randomRayPoint,
+                    focalPoint.subtract(randomRayPoint).normalized()));
+        }
+        return beam;
+
+    }
+
+
 
     /**
      * helper function to find the center point of pixel ij
@@ -175,7 +233,7 @@ public class Camera {
      */
     private Point3D findPixel(int nX, int nY, int j, int i){
         //Image center
-        Point3D Pc = _po.add(_vTo.scale(_distance));
+        Point3D Pc = _p0.add(_vTo.scale(_distance));
 
         //Ratio(pixel width and height)
         double Rx = _width / nX;
