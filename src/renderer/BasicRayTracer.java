@@ -167,7 +167,8 @@ public class BasicRayTracer extends RayTracerBase {
         Vector v = ray.getDir(); //the direction of the ray
         Vector n = intersection.geometry.getNormal(intersection.point); //the normal vector of the geometry
         double nv = alignZero(n.dotProduct(v)); //the rate between the normal of the geometry and the direction of the ray
-        if (nv == 0) return Color.BLACK; //if the ray doesn't hit the geometry, return black
+        if (nv == 0)
+            return Color.BLACK; //if the ray doesn't hit the geometry, return black
         Material material = intersection.geometry.getMaterial(); //the material of the geometry
         int nShininess = material.getShininess();
         double kd = material.getKd(), ks = material.getKs();
@@ -176,13 +177,12 @@ public class BasicRayTracer extends RayTracerBase {
         for (LightSource lightSource : _scene.lights) {
             Vector l = lightSource.getL(intersection.point); //get the direction of the current light
             double nl = alignZero(n.dotProduct(l)); //the rate between the normal of the geometry and the direction of the light
-            if (nl * nv > 0) { // sign(nl) == sing(nv)
-                double ktr = transparency(lightSource, l, n, intersection.point);
-                if (ktr * k > MIN_CALC_COLOR_K) {
-
-                    if (unshaded(lightSource, l, n, intersection.point)) {
-                        Color lightIntensity = lightSource.getIntensity(intersection.point); //calculate the intensity in the intersection point
-                        //calculate the color using the Phong model formula
+            if (nl * nv > 0) { // sign(nl) == sign(nv)
+                double ktr = transparency(lightSource, l, n, intersection.point);// transparency coefficient
+                // if transparency is significant enough, add to calculation of the color
+                if (ktr * k > MIN_CALC_COLOR_K) {//
+                    Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
+                    //calculate the color using the Phong model formula
                         color = color.add(calcDiffusive(kd, l, n, lightIntensity),
                                 calcSpecular(ks, l, n, v, nShininess, lightIntensity)); //add the color of this light to the main color
                     }
@@ -190,7 +190,7 @@ public class BasicRayTracer extends RayTracerBase {
             }
             return color;
         }
-    }
+
 
 
 
@@ -202,6 +202,7 @@ public class BasicRayTracer extends RayTracerBase {
      * @param point point that we would like to know if the light reaches it
      * @return true- if the light reaches the object, otherwise- false
      */
+    /**
     private boolean unshaded(LightSource light, Vector l, Vector n, Point3D point) {
         Vector dir=l.scale(-1);//vector from point towards light source
         Ray lightRay=new Ray(point,dir,n);
@@ -217,6 +218,7 @@ public class BasicRayTracer extends RayTracerBase {
         return true;
 
     }
+     */
 
     /**
      * calculates transparency coefficient in order to achieve accurate amount of transparency
