@@ -29,6 +29,7 @@ public class Point3D {
 
     /**
      * primary constructor for Point3D
+     *
      * @param x coordinate value for X axis
      * @param y coordinate value for Y axis
      * @param z coordinate value for Z axis
@@ -41,17 +42,19 @@ public class Point3D {
     public double getX() {
         return _x._coord;
     }
+
     public double getY() {
         return _y._coord;
     }
+
     public double getZ() {
         return _z._coord;
     }
-/**
- * @param vec Vector  to add to this point
- * @return new Point3D the result of the addition
 
- */
+    /**
+     * @param vec Vector  to add to this point
+     * @return new Point3D the result of the addition
+     */
 
     public Point3D add(Vector vec) {
         double x = _x._coord + vec._head._x._coord;
@@ -65,7 +68,7 @@ public class Point3D {
 
     /**
      * @param point Point3D  from whom we create the Vector
-     *                pointing towards this Point3d instance
+     *              pointing towards this Point3d instance
      * @return new vector pointing towards this Point3d instance
      */
     public Vector subtract(Point3D point) {
@@ -80,20 +83,21 @@ public class Point3D {
 
     /**
      * @param point point3D from whom we want to get the distance squared
-     * @return ( xx+yy+zz)
+     * @return (xx + yy + zz)
      */
     public double distanceSquared(Point3D point) {
-        double xx = (_x._coord - point._x._coord)*(_x._coord - point._x._coord);
-        double yy = (_y._coord - point._y._coord)*(_y._coord - point._y._coord);
-        double zz = (_z._coord - point._z._coord)*(_z._coord - point._z._coord);
+        double xx = (_x._coord - point._x._coord) * (_x._coord - point._x._coord);
+        double yy = (_y._coord - point._y._coord) * (_y._coord - point._y._coord);
+        double zz = (_z._coord - point._z._coord) * (_z._coord - point._z._coord);
 
-        return( xx+yy+zz);
+        return (xx + yy + zz);
     }
 
     /**
      * finds the distance between 2 3D points
+     *
      * @param point point3D from whom we want to get the distance
-     * @return  distance between 2  3D points
+     * @return distance between 2  3D points
      */
     public double distance(Point3D point) {
         return Math.sqrt(distanceSquared(point));
@@ -101,7 +105,6 @@ public class Point3D {
 
 
     /**
-     *
      * @param o Object ( another Point3d) to compare
      * @return true or false accordingly
      */

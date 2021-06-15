@@ -44,6 +44,7 @@ public class Plane extends Geometry {
         Vector U = p2.subtract(p1);
         Vector V = p3.subtract(p1);
         try {
+            // perpendicular vector to both vectors which becomes the normal vector to the plane
             Vector N = U.crossProduct(V);
             N.normalize();
             _normal = N;
@@ -69,8 +70,8 @@ public class Plane extends Geometry {
 
 
     /**
-     * override findGeoIntersections
-     * @param ray
+     * finds all intersections between received ray within maxDistance from light
+     * @param ray that intersects the point in geometry
      * @param maxDistance the maximum distance
      * @return list of all geoPoints that intersected with ray
      */
@@ -81,6 +82,7 @@ public class Plane extends Geometry {
 
         Vector n = _normal;
 
+        // the head of the ray is
         if(_q0.equals(P0)){
             return  null;
         }

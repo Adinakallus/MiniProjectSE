@@ -81,42 +81,76 @@ public class Camera {
         return _distance;
     }
 
+    /**
+     * @return dof
+     */
     public double get_dof() {
         return _dof;
     }
 
+    /**
+     * sets the depth of field
+     * @param _dof
+     * @return current camera
+     */
     public Camera set_dof(double _dof) {
         this._dof = _dof;
         return this;
     }
 
+    /**
+     * @return aperture
+     */
     public double get_aperture() {
         return _aperture;
     }
 
-    public void set_aperture(double _aperture) {
+    /**
+     * sets the aperture size
+     * @param _aperture
+     * @return current camera
+     */
+    public Camera set_aperture(double _aperture) {
         this._aperture = _aperture;
+        return this;
     }
 
+    /**
+     * @return amountOfRays
+     */
     public int get_amountOfRays() {
         return _amountOfRays;
     }
 
-    public void set_amountOfRays(int _amountOfRays) {
+    /**
+     * sets the ammount of rays
+     * @param _amountOfRays
+     * @return current camera
+     */
+    public Camera set_amountOfRays(int _amountOfRays) {
         this._amountOfRays = _amountOfRays;
+        return this;
     }
 
+    /**
+     * @return focalDistance
+     */
     public double get_focalDistance() {
         return _focalDistance;
     }
 
-    public void set_focalDistance(double _focalDistance) {
+    /**
+     * sets the focal distance
+     * @param _focalDistance
+     * @return the current camera
+     */
+    public Camera set_focalDistance(double _focalDistance) {
         this._focalDistance = _focalDistance;
+        return this;
     }
 
     /**
      * constructor for Camera
-     *
      * @param p0  the location of the camera
      * @param vTO vector to
      * @param vUP vector up
@@ -135,7 +169,6 @@ public class Camera {
 
     /**
      * sets the view planes size
-     *
      * @param width  width of the view plane
      * @param height height of the view plane
      * @return current camera
@@ -148,7 +181,6 @@ public class Camera {
 
     /**
      * sets the distance between view plane and camera
-     *
      * @param distance the distance of the view plane
      * @return the current camera
      */

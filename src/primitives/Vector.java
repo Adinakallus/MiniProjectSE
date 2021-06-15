@@ -79,7 +79,7 @@ public class Vector {
     }
 
     /**
-     * Cross product (vectorial product)
+     * Cross product (vector product)
      *
      * @param v another Vector
      * @return new Vector resulting from cross product

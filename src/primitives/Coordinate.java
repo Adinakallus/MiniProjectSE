@@ -18,7 +18,6 @@ public final class Coordinate {
 
     /**
      * Coordinate constructor receiving a coordinate value
-     *
      * @param coord coordinate value
      */
     public Coordinate(double coord) {

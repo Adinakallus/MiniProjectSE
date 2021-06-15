@@ -68,9 +68,9 @@ public class Render {
             throw new MissingResourceException("rayTracer is missing", "Render", "rayTracerBase");
 
         Color pixelColor = new Color(0, 0, 0);
-        Color background = rayTracer._scene.background;
+        Color background = rayTracer._scene.background;//background color
 
-
+        //size of view plane
         int nx = imageWriter.getNx();
         int ny = imageWriter.getNy();
         Ray mainRay;
@@ -95,9 +95,10 @@ public class Render {
     }
 
 
-
     /**
-     *
+     * calculates the average color of all the intersection points of the rays in the beam
+     * @param beam list of rays
+     * @return the color of beam
      */
     private Color calcAverageColor(List<Ray> beam){
         Color avgColor = new Color(0, 0, 0);
@@ -107,8 +108,8 @@ public class Render {
         avgColor = avgColor.reduce(beam.size());
         return avgColor;
     }
+
     /**
-     *
      * prints a grid onto viewPlane
      * @param interval size of each box in the grid
      * @param color color of the grid

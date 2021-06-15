@@ -73,7 +73,7 @@ public class BasicRayTracer extends RayTracerBase {
      * @param geoPoint  point on the object
      * @param ray  ray that is intersecting the point
      * @param level the level of the recursion
-     * @param k מקדם הנחתה
+     * @param k attenuation coefficient
      * @return the color of the point including all the global effects
      */
     private Color calcColor(GeoPoint geoPoint, Ray ray, int level , double k) {
@@ -91,13 +91,13 @@ public class BasicRayTracer extends RayTracerBase {
      * @param gp point on the object
      * @param v vector- direction of ray that intersected the surface
      * @param level the level of the recursion
-     * @param k מקדם הנחתה
+     * @param k attenuation coefficient
      * @return the color of the point including Reflection and Refraction
      */
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, double k) {
-        Color color = Color.BLACK;
+        Color color = Color.BLACK;//color of background
         Vector n = gp.geometry.getNormal(gp.point);
-        Material material = gp.geometry.getMaterial();
+        Material material = gp.geometry.getMaterial();//material of geometry
         double kkr = k * material.kr;
         if (kkr > MIN_CALC_COLOR_K)
             color = calcGlobalEffect(constructReflectedRay(gp.point, v, n), level, material.kr, kkr);
@@ -180,7 +180,7 @@ public class BasicRayTracer extends RayTracerBase {
             if (nl * nv > 0) { // sign(nl) == sign(nv)
                 double ktr = transparency(lightSource, l, n, intersection.point);// transparency coefficient
                 // if transparency is significant enough, add to calculation of the color
-                if (ktr * k > MIN_CALC_COLOR_K) {//
+                if (ktr * k > MIN_CALC_COLOR_K) {
                     Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
                     //calculate the color using the Phong model formula
                         color = color.add(calcDiffusive(kd, l, n, lightIntensity),

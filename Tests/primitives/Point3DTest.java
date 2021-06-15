@@ -2,11 +2,18 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Hadassa Israel and Adina Kallus
+ */
 class Point3DTest {
 
-
+    /**
+     * Test method for {@link Point3D#distance(Point3D)}.
+     */
     @Test
     void distanceTest() {
        Point3D p1=new Point3D(3,4,6);

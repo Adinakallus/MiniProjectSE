@@ -60,8 +60,8 @@ public class Sphere extends Geometry {
     }
 
     /**
-     * override findGeoIntersections
-     *  @param ray
+     * finds all intersections between received ray within maxDistance from light
+     *  @param ray that intersects the point in geometry
      * @return list of all GeoIntersection points with sphere
      */
 
@@ -70,7 +70,8 @@ public class Sphere extends Geometry {
         Point3D P0 = ray.getP0();
         Vector v = ray.getDir();
 
-        if (P0.equals(_center)) {
+
+        if (P0.equals(_center)) {//center point is the head of the ray
             Point3D p= _center.add(v.scale(_radius));
             if(alignZero(_radius-maxDistance)<=0) {
                 return List.of(new GeoPoint(this, p));

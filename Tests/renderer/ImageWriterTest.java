@@ -2,11 +2,18 @@ package renderer;
 
 import org.junit.jupiter.api.Test;
 import primitives.Color;
+import primitives.Point3D;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Hadassa Israel and Adina Kallus
+ */
 class ImageWriterTest {
 
+    /**
+     * Produce a grid with blue background
+     */
     @Test
     void writeToImageTest() {
         ImageWriter imageWriter = new ImageWriter("bluepic", 800, 500);
