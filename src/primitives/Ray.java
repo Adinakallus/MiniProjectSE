@@ -24,7 +24,6 @@ public class Ray {
 
     /**
      * Constructor for Ray class
-     *
      * @param p0  starting point of Ray
      * @param dir direction of Ray
      */
@@ -62,7 +61,11 @@ public class Ray {
         return new Vector(_dir.getHead());
     }
 
-
+    /**
+     *
+     * @param delta
+     * @return
+     */
     public Point3D getPoint(double delta) {
         if (isZero(delta)) {
             return _p0;
@@ -100,10 +103,11 @@ public class Ray {
     public Point3D findClosestPoint(List<Point3D> points) {
         if(points.isEmpty())
             return null;
-
+        // the minimum distance
         double minDistance = _p0.distance(points.get(0));
         Point3D closest = points.get(0);
 
+        // go over the list to check the closest point
         for (int i = 1; i < points.size(); i++) {
             double dist = _p0.distance(points.get(i));
             if (dist < minDistance) {
@@ -125,6 +129,7 @@ public class Ray {
             double minDistance = _p0.distance(intersections.get(0).point);
             GeoPoint closest = intersections.get(0);
 
+            //looks for closest intersection
             for (GeoPoint gp : intersections) {
                 double dist = gp.point.distance(_p0);
                 if (dist < minDistance) {

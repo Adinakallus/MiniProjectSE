@@ -10,6 +10,9 @@ import renderer.Render;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Hadassa Israel and Adina Kallus
+ */
 class CameraTest {
     /**
      * Test method for

@@ -104,8 +104,14 @@ public class PointLight extends Light implements LightSource {
         return p.subtract(_position).normalize();
     }
 
+    /**
+     * gets the distance from light source
+     * @param point point 3D
+     * @return distance
+     */
     @Override
     public double getDistance(Point3D point) {
+
         return _position.distance(point);
     }
 }

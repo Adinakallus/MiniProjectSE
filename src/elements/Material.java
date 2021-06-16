@@ -12,19 +12,35 @@ public class Material {
     public double kt =0d;//opaque[0.0-1.0]
     public double kr =0d;//matt surface[0.0-1.0]
 
+    /**
+     * @return kt
+     */
     public double getKt() {
         return kt;
     }
 
+    /**
+     * @return kr
+     */
     public double getKr() {
         return kr;
     }
 
+    /**
+     * sets the transparency coefficient
+     * @param kt
+     * @return current material
+     */
     public Material setKt(double kt) {
         this.kt = kt;
         return this;
     }
 
+    /**
+     * sets the reflection
+     * @param kr
+     * @return current material
+     */
     public Material setKr(double kr) {
         this.kr = kr;
         return this;
