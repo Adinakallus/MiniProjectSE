@@ -30,7 +30,7 @@ public class Camera {
     private double _aperture;
     private int _amountOfRays;
     private double _focalDistance;
-    private Random _rand;
+    private static Random _rand;
 
     /**
      * @return vTo
