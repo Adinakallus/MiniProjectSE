@@ -18,7 +18,7 @@ public class DepthOfField {
     @Test
     public void dof() {
         Camera cameraTo = new Camera(new Point3D(-1000, 0, 0), new Vector(1, 0, 0), new Vector(0, 1, 0)) //
-                .setViewPlaneSize(200, 200).setDistance(1000).set_aperture(4d).set_amountOfRays(300).set_dof(0).set_focalDistance(50);
+                .setViewPlaneSize(200, 200).setDistance(1000).set_aperture(4d).set_amountOfRays(300).set_dof(false).set_focalDistance(50);
 
         scene.geometries.add(
                 new Plane(new Point3D(8, -40, 3), new Point3D(3, -40, 2), new Point3D(5, -40, 5))

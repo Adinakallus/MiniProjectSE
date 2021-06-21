@@ -74,7 +74,7 @@ public class Render {
         int nx = imageWriter.getNx();
         int ny = imageWriter.getNy();
         Ray mainRay;
-        if (camera.get_dof() == 0) {
+        if (!camera.get_dof()) {
             for (int i = 0; i < ny; i++) {
                 for (int j = 0; j < nx; j++) {
                     pixelColor = rayTracer.traceRay(camera.constructRayThroughPixel(nx, ny, j, i));

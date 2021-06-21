@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
  *@author Adina Kallus and Hadassa Israel
  */
 public interface Intersectable {
+
     /**
      *
      * pds to combine a point and geometry that its on,
@@ -22,7 +23,6 @@ public interface Intersectable {
     public static class GeoPoint{
         public Geometry geometry;
         public Point3D point;
-
         /**
          * constructor for geometry
          * @param geometry  the geometry that point is on

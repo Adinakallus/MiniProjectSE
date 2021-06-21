@@ -26,7 +26,7 @@ public class Camera {
     private double _width;
     private double _height;
     private double _distance;
-    private double _dof;
+    private boolean _dof=false;
     private double _aperture;
     private int _amountOfRays;
     private double _focalDistance;
@@ -84,7 +84,7 @@ public class Camera {
     /**
      * @return dof
      */
-    public double get_dof() {
+    public boolean get_dof() {
         return _dof;
     }
 
@@ -93,7 +93,7 @@ public class Camera {
      * @param _dof
      * @return current camera
      */
-    public Camera set_dof(double _dof) {
+    public Camera set_dof(boolean _dof) {
         this._dof = _dof;
         return this;
     }
