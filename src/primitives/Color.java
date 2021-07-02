@@ -122,4 +122,26 @@ public class Color {
         return new Color(r / k, g / k, b / k);
     }
 
+
+    /**
+     * override method for color class to compare two colors in a more realistic way
+     * @param obj
+     * @return true if the colors are noticeably different and false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        int thisX=this.getColor().getRed();
+        int thisY=this.getColor().getBlue();
+        int thisZ=this.getColor().getGreen();
+        Point3D thisColor=new Point3D(thisX,thisY,thisZ);
+        Color color = (Color) obj;
+        int objX=this.getColor().getRed();
+        int objY=this.getColor().getBlue();
+        int objZ=this.getColor().getGreen();
+        Point3D objColor=new Point3D(objX,objY,objZ);
+        return thisColor.distance(objColor)<7;
+
+    }
 }

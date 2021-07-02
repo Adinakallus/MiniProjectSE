@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import static primitives.Util.isZero;
+import static primitives.Util.random;
 
 /**
  * camera class represents the point
@@ -30,7 +31,6 @@ public class Camera {
     private double _aperture;
     private int _amountOfRays;
     private double _focalDistance;
-    private static Random _rand;
 
     /**
      * @return vTo
@@ -163,7 +163,7 @@ public class Camera {
         _vUp = vUP.normalized();
         _vTo = vTO.normalized();
         _vRight = _vTo.crossProduct(_vUp);
-        _rand=new Random();
+
 
     }
 
@@ -204,6 +204,53 @@ public class Camera {
             return new Ray(_p0, pij.subtract(_p0));
     }
 
+
+    /**
+     * constructs a ray from a random point on the aperture through the focal point
+     *
+     *
+     * @return constructed ray
+     */
+    public Ray constructRayThroughPixelDOF(Point3D pij) {
+
+
+        Vector dir=pij.subtract(_p0).normalized();//direction from camera towards the object through the view plane
+
+        Point3D focalPoint=pij.add(dir.scale(_focalDistance-_distance));//find focal point based on line formula (x,y,z)+t*(a,b,c)
+        //
+        //double randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble();
+
+        //create  from random point in aperture
+        Point3D randPoint;
+        Random r = new Random();
+        double minY=-_p0.getY()-_aperture;
+        double maxY=-_p0.getY()+_aperture;
+        double minZ=-_p0.getZ()-_aperture;
+        double maxZ=-_p0.getZ()+_aperture;
+        double randY =minY+(maxY-minY)*r.nextDouble();
+        double randZ =minZ+(maxZ-minZ)*r.nextDouble();
+        randPoint = new Point3D(_p0.getX(),  randY,  randZ);
+
+        return new Ray(randPoint, focalPoint.subtract(randPoint));
+
+
+    }
+
+
+
+
+    public   List<Ray> constructRayBeamThroughPixelDOF(int nX, int nY, int j, int i) {
+
+        List<Ray> beam = new LinkedList<>();//list of rays representing the beam
+        Point3D pij = findPixel(nX, nY, j, i);//current pixel on view plane
+        for (int k = 1; k <_amountOfRays; k++) {
+            beam.add(constructRayThroughPixelDOF(pij));
+        }
+        return beam;
+    }
+
+
+
     /**
      * creates a beam of rays that start at the view plane towards the focal
      point
@@ -213,7 +260,7 @@ public class Camera {
      * @param i index i
      * @return List of Rays
      */
-    public List<Ray> createBeamOfRays(int nX, int nY, int j, int i){
+/**    public List<Ray> createBeamOfRays(int nX, int nY, int j, int i){
 
         List<Ray> beam = new LinkedList<>();//list of rays representing the beam
         //find the current pixel
@@ -252,7 +299,63 @@ public class Camera {
         }
         return beam;
 
+    }*/
+
+    /**
+
+
+public List<Ray> createAdaptiveBeamOfRays(int nX, int nY, int j, int i, double div, Point3D sub_center, List<Ray>calculatedRays){
+    List<Ray> beam=new LinkedList<>();
+
+    //find center of current pixel
+    Point3D pij=findPixel(nX, nY, j, i);
+
+    //vector towards the focal point
+    Vector mainRayDir = pij.subtract(_p0).normalize();
+
+    Point3D center=pij;
+
+    //if point recieved is differnt then calculated point, then this is a sub pixel
+    if(!sub_center.equals(pij)){
+        center=sub_center;
     }
+    //calculates the focal point
+    Point3D focalPoint = pij.add(mainRayDir.scale(_focalDistance/ _vTo.dotProduct(mainRayDir)));
+
+    beam.add(new Ray(center,mainRayDir));//add center ray
+
+    //if we are only sending one ray, or the the aperture is almost closed, we only send original ray
+    if (_amountOfRays == 1 || isZero(_aperture)) {
+        return beam;
+    }
+
+    double distToCorners=_aperture/div;
+
+    //move from center of pixel to the corners,and add them to the beam:
+
+
+    //upper left
+    Point3D  corner =new Point3D(center.getX()-distToCorners, center.getY()+distToCorners, center.getZ());
+    if()
+    beam.add(new Ray(corner,focalPoint.subtract(corner).normalized()));
+
+    //upper right
+    corner =new Point3D(center.getX()+distToCorners, center.getY()+distToCorners, center.getZ());
+    beam.add(new Ray(corner,focalPoint.subtract(corner).normalized()));
+
+    //lower right
+    corner =new Point3D(center.getX()+distToCorners, center.getY()-distToCorners, center.getZ());
+    beam.add(new Ray(corner,focalPoint.subtract(corner).normalized()));
+
+    //Lower left
+     corner =new Point3D(center.getX()-distToCorners, center.getY()-distToCorners, center.getZ());
+    beam.add(new Ray(corner,focalPoint.subtract(corner).normalized()));
+
+    return beam;
+
+}
+*/
+
 
 
 
@@ -264,7 +367,7 @@ public class Camera {
      * @param i the row of the pixel that we go to
      * @return center point of pixel ij
      */
-    private Point3D findPixel(int nX, int nY, int j, int i){
+    public Point3D findPixel(int nX, int nY, int j, int i){
         //Image center
         Point3D Pc = _p0.add(_vTo.scale(_distance));
 

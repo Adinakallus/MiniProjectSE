@@ -56,6 +56,8 @@ public class BasicRayTracer extends RayTracerBase {
 
 
 
+
+
     /**
      * calculate color of object at intersection point with ray
      * @param geoPoint  point on the object

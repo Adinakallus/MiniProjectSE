@@ -83,6 +83,10 @@ public class Polygon extends Geometry {
         }
     }
 
+    //////!!!!!!!!!!!!!!!!DELETE!!!!
+    public List<Point3D>get_vertices(){
+        return _vertices;
+    }
     @Override
     public Vector getNormal(Point3D point) {
         return _plane.getNormal(null);
