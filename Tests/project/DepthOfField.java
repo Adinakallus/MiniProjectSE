@@ -62,7 +62,7 @@ public class DepthOfField {
         scene.lights.add(new DirectionalLight(new Color(185, 200, 0), new Vector(-100, -50, 90)));
         scene.lights.add(new SpotLight(new Color(229, 180, 225), new Point3D(100, 30, -90), new Vector(65, -50, 90)));
         scene.lights.add(new PointLight(new Color(185, 200, 0), new Point3D(-400, 600, 200)));
-        ImageWriter imageWriter = new ImageWriter("dof_4d", 600, 600);
+        ImageWriter imageWriter = new ImageWriter("dof_1.8", 600, 600);
         Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(cameraTo) //
