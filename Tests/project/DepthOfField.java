@@ -20,7 +20,7 @@ public class DepthOfField {
     @Test
     public void dof() {
         Camera cameraTo = new Camera(new Point3D(-1000, 0, 0), new Vector(1, 0, 0), new Vector(0, 1, 0)) //
-                .setViewPlaneSize(200, 200).setDistance(1000).set_aperture(4d).set_amountOfRays(100).set_dof(true)
+                .setViewPlaneSize(200, 200).setDistance(1000).set_aperture(4d).set_amountOfRays(81).set_dof(true)
                 .set_focalDistance(new Point3D(-1000, 0, 0).distance(new Point3D(-500,-31,0)));
 
         scene.geometries.add(
@@ -32,27 +32,27 @@ public class DepthOfField {
                 new Sphere(30, new Point3D(165, -10, 0))
                         .setEmission(new Color(3, 85, 87))
                         .setMaterial(new Material().setKd(0.9).setKt(0.1).setKs(0.2).setShininess(19)),
-                new Sphere(20, new Point3D(110, -20, 45))
-                        .setEmission(new Color(80, 8, 87))
-                        .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-                new Sphere(20, new Point3D(60, -20, -5))
-                        .setEmission(new Color(30, 8, 87))
-                        .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-                new Sphere(11, new Point3D(-10, -29, 40))
-                        .setEmission(new Color(80, 79, 8))
-                        .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-                new Sphere(15, new Point3D(20, -25, 30))
-                        .setEmission(new Color(3, 85, 40))
-                        .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-                new Sphere(17, new Point3D(110, -23, -45))
-                        .setEmission(new Color(80, 8, 20))
-                        .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-                new Sphere(12, new Point3D(-10, -28, -70))
-                        .setEmission(new Color(90, 60, 10))
-                        .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-                new Sphere(9, new Point3D(-35, -31, -25))
-                        .setEmission(new Color(80, 30, 18))
-                        .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+              //  new Sphere(20, new Point3D(110, -20, 45))
+              //          .setEmission(new Color(80, 8, 87))
+              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+              //  new Sphere(20, new Point3D(60, -20, -5))
+              //          .setEmission(new Color(30, 8, 87))
+              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+              //  new Sphere(11, new Point3D(-10, -29, 40))
+              //          .setEmission(new Color(80, 79, 8))
+              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+              //  new Sphere(15, new Point3D(20, -25, 30))
+              //          .setEmission(new Color(3, 85, 40))
+              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+              //  new Sphere(17, new Point3D(110, -23, -45))
+              //          .setEmission(new Color(80, 8, 20))
+              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+              //  new Sphere(12, new Point3D(-10, -28, -70))
+              //          .setEmission(new Color(90, 60, 10))
+              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+              //  new Sphere(9, new Point3D(-35, -31, -25))
+              //          .setEmission(new Color(80, 30, 18))
+              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
                 new Sphere(9, new Point3D(-491, -31, 5))
                         .setEmission(new Color(80, 30, 18))
                         .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19))
@@ -62,11 +62,12 @@ public class DepthOfField {
         scene.lights.add(new DirectionalLight(new Color(185, 200, 0), new Vector(-100, -50, 90)));
         scene.lights.add(new SpotLight(new Color(229, 180, 225), new Point3D(100, 30, -90), new Vector(65, -50, 90)));
         scene.lights.add(new PointLight(new Color(185, 200, 0), new Point3D(-400, 600, 200)));
-        ImageWriter imageWriter = new ImageWriter("dof", 600, 600);
+        ImageWriter imageWriter = new ImageWriter("dof_", 600, 600);
         Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(cameraTo) //
-                .setRayTracer(new BasicRayTracer(scene));
+                .setRayTracer(new BasicRayTracer(scene)) 
+              .setAdaptiveSampling(true);
 
         render.renderImage();
         render.writeToImage();
@@ -93,6 +94,33 @@ public class DepthOfField {
         scene.geometries.add(new Triangle(treeTop,baseLeft,baseBack).setEmission(treeShade).setMaterial(new Material().setKd(1).setShininess(19)));
 
     }
+
+    private void addBuilding(Point3D center, double width, double height, Color inner, Color outer, int layer){
+        Polygon base=new Polygon( new Point3D(center.getX()+width/2d ,center.getY(), center.getZ()-width/2d),
+                                          new Point3D(center.getX()+width/2d,center.getY(), center.getZ()+width/2d),
+                                          new Point3D(center.getX()-width/2d,center.getY(),center.getZ()+width/2d),
+                                          new Point3D(center.getX()-width/2d,center.getY(),center.getZ()-width/2d));
+        //build inner part of building
+        buildPrism(base,height,inner,new Material().setKs(1).setKd(0.5).setKr(0.5),inner
+                ,new Material().setKs(1).setKd(0.5).setKr(0.5).setShininess(19));
+        double windowY=center.getY()+20;
+        while(windowY+4<height) {
+            Polygon windows = new Polygon(new Point3D(center.getX() + width * 0.55, windowY, center.getZ() - width*0.55),
+                    new Point3D(center.getX() + width * 0.55,windowY , center.getZ() + width * 0.55),
+                    new Point3D(center.getX() - width * 0.55, windowY, center.getZ() + width * 0.55),
+                    new Point3D(center.getX() - width * 0.55, windowY, center.getZ() - width * 0.55));
+            buildPrism(windows, 5, outer, new Material().setKd(1).setShininess(19), inner
+                    , new Material().setKd(1).setShininess(19));
+             windowY=windowY+20;
+        }
+
+    }
+
+
+
+
+
+
 
 
     //DELETE POLYGON GETVERTECES!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -146,12 +174,13 @@ public class DepthOfField {
             double ground=-60;
             double streetSideZ=35;
             double streetSideX=9000;
-            String imageName="tree_rowsAnd_st_lines2";
+            String imageName="tree_rowsAnd_st_lines2Adaptive";
             //</editor-fold>
             //<editor-fold desc="Set camera, ImageWriter, Lights, background">
             Camera cameraTo = new Camera(new Point3D(-1000, 0, 0), new Vector(1, 0, 0), new Vector(0, 1, 0)) //
-                    .setViewPlaneSize(200, 200).setDistance(1000).set_aperture(4d).set_amountOfRays(300).set_dof(false).set_focalDistance(50);
-            scene.background = new Color(134, 255, 255);
+                    .setViewPlaneSize(200, 200).setDistance(1000).set_aperture(4d).set_amountOfRays(81).set_dof(false)
+                    .set_focalDistance(new Point3D(-1000, 0, 0).distance(new Point3D(-500,-31,0)));
+            scene.background = new Color(19, 24, 72);
             scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.BLACK), 0.15));
 
             scene.lights.add(new DirectionalLight(new Color(230, 100, 0), new Vector(50, -70, -70)));
@@ -189,32 +218,33 @@ public class DepthOfField {
                     .setMaterial(new Material().setKd(1).setShininess(19));
             //</editor-fold>
            // <editor-fold desc="Create tree rows">
-            double treeXL=-500;
-            double treeXR=-500;
-            double treeWidth=15;
-            for(int i=0;i<30;i++) {
-               addTree(new Point3D(treeXL, ground + 5, -1*streetSideZ - 10),
-                       60, treeWidth, new Color(53, 98, 16));
-               addTree(new Point3D(treeXR, ground + 5, streetSideZ+10),
-                     60, treeWidth, new Color(53, 98, 16));
-                treeXL=treeXL+200;
-                treeXR=treeXR+200;
-            }
-            //</editor-fold>
+          // double treeXL=-500;
+          // double treeXR=-500;
+          // double treeWidth=15;
+          // for(int i=0;i<30;i++) {
+          //    addTree(new Point3D(treeXL, ground + 5, -1*streetSideZ - 10),
+          //            60, treeWidth, new Color(53, 98, 16));
+          //    addTree(new Point3D(treeXR, ground + 5, streetSideZ+10),
+          //          60, treeWidth, new Color(53, 98, 16));
+          //     treeXL=treeXL+200;
+          //     treeXR=treeXR+200;
+          // }
+          // //</editor-fold>
 
-             double frontX=-400;
-             double backX=-300;
-             double leftZ=-1*streetSideZ+33;
-             double rightZ=streetSideZ-33;
-           for(int i=0;i<70;i++) {
-               Geometry streetLine = new Polygon(new Point3D(backX, ground, leftZ), new Point3D(backX, ground, rightZ),
-                                     new Point3D(frontX, ground, rightZ), new Point3D(frontX, ground, leftZ))
-                                          .setEmission(new Color(255, 255, 255))
-                                            .setMaterial(sidewalkMat);
-               scene.geometries.add( streetLine);
-               frontX=frontX+150;
-               backX=backX+150;
-           }
+          //  double frontX=-400;
+          //  double backX=-300;
+          //  double leftZ=-1*streetSideZ+33;
+          //  double rightZ=streetSideZ-33;
+          //for(int i=0;i<70;i++) {
+          //    Geometry streetLine = new Polygon(new Point3D(backX, ground, leftZ), new Point3D(backX, ground, rightZ),
+          //                          new Point3D(frontX, ground, rightZ), new Point3D(frontX, ground, leftZ))
+          //                               .setEmission(new Color(255, 255, 255))
+          //                                 .setMaterial(sidewalkMat);
+          //    scene.geometries.add( streetLine);
+          //    frontX=frontX+150;
+          //    backX=backX+150;
+          //}
+           addBuilding(new Point3D(200,-60,0),70,100,new Color(89,133,138),new Color(229,61,139),0);
 
             scene.geometries.add( street);
 
@@ -222,7 +252,8 @@ public class DepthOfField {
             Render render = new Render() //
                     .setImageWriter(imageWriter) //
                     .setCamera(cameraTo) //
-                    .setRayTracer(new BasicRayTracer(scene));
+                    .setRayTracer(new BasicRayTracer(scene))
+                    .setAdaptiveSampling(false);
 
             render.renderImage();
             render.writeToImage();

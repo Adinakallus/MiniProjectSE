@@ -15,6 +15,7 @@ import primitives.Vector;
 import scene.Scene;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -54,8 +55,19 @@ public class BasicRayTracer extends RayTracerBase {
         return _scene.background;
     }
 
-
-
+    /**
+     * traces all rays in the beam of rays
+     * @param beam
+     * @return     list that contains the results of all the traced rays in beam(in corresponding order)
+     */
+      public List<Color>traceBeam(List<Ray>beam){
+        List<Color>colors=new LinkedList<>();
+          for(Ray r:beam){
+              Color color=this.traceRay(r);
+              colors.add(color);
+          }
+           return colors;
+      }
 
 
     /**
