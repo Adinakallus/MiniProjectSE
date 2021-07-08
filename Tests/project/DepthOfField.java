@@ -32,27 +32,27 @@ public class DepthOfField {
                 new Sphere(30, new Point3D(165, -10, 0))
                         .setEmission(new Color(3, 85, 87))
                         .setMaterial(new Material().setKd(0.9).setKt(0.1).setKs(0.2).setShininess(19)),
-              //  new Sphere(20, new Point3D(110, -20, 45))
-              //          .setEmission(new Color(80, 8, 87))
-              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-              //  new Sphere(20, new Point3D(60, -20, -5))
-              //          .setEmission(new Color(30, 8, 87))
-              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-              //  new Sphere(11, new Point3D(-10, -29, 40))
-              //          .setEmission(new Color(80, 79, 8))
-              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-              //  new Sphere(15, new Point3D(20, -25, 30))
-              //          .setEmission(new Color(3, 85, 40))
-              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-              //  new Sphere(17, new Point3D(110, -23, -45))
-              //          .setEmission(new Color(80, 8, 20))
-              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-              //  new Sphere(12, new Point3D(-10, -28, -70))
-              //          .setEmission(new Color(90, 60, 10))
-              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
-              //  new Sphere(9, new Point3D(-35, -31, -25))
-              //          .setEmission(new Color(80, 30, 18))
-              //          .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+               new Sphere(20, new Point3D(110, -20, 45))
+                       .setEmission(new Color(80, 8, 87))
+                       .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+               new Sphere(20, new Point3D(60, -20, -5))
+                       .setEmission(new Color(30, 8, 87))
+                       .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+               new Sphere(11, new Point3D(-10, -29, 40))
+                       .setEmission(new Color(80, 79, 8))
+                       .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+               new Sphere(15, new Point3D(20, -25, 30))
+                       .setEmission(new Color(3, 85, 40))
+                       .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+               new Sphere(17, new Point3D(110, -23, -45))
+                       .setEmission(new Color(80, 8, 20))
+                       .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+               new Sphere(12, new Point3D(-10, -28, -70))
+                       .setEmission(new Color(90, 60, 10))
+                       .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
+               new Sphere(9, new Point3D(-35, -31, -25))
+                       .setEmission(new Color(80, 30, 18))
+                       .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19)),
                 new Sphere(9, new Point3D(-491, -31, 5))
                         .setEmission(new Color(80, 30, 18))
                         .setMaterial(new Material().setKd(0.9).setKt(0.1).setShininess(19))
@@ -62,12 +62,12 @@ public class DepthOfField {
         scene.lights.add(new DirectionalLight(new Color(185, 200, 0), new Vector(-100, -50, 90)));
         scene.lights.add(new SpotLight(new Color(229, 180, 225), new Point3D(100, 30, -90), new Vector(65, -50, 90)));
         scene.lights.add(new PointLight(new Color(185, 200, 0), new Point3D(-400, 600, 200)));
-        ImageWriter imageWriter = new ImageWriter("dof_", 600, 600);
+        ImageWriter imageWriter = new ImageWriter("dof_4d", 600, 600);
         Render render = new Render() //
                 .setImageWriter(imageWriter) //
                 .setCamera(cameraTo) //
                 .setRayTracer(new BasicRayTracer(scene)) 
-              .setAdaptiveSampling(true);
+              .setAdaptiveSampling(false);
 
         render.renderImage();
         render.writeToImage();
